@@ -2,7 +2,7 @@ import numpy as np
 
 from matplotlib import pyplot as plt
 from scipy.cluster.hierarchy import dendrogram
-from sklearn.datasets import load_iris
+#from sklearn.datasets import load_boston
 from sklearn.cluster import AgglomerativeClustering
 
 
@@ -28,8 +28,23 @@ def plot_dendrogram(model, **kwargs):
     dendrogram(linkage_matrix, **kwargs)
 
 
-iris = load_iris()
-X = iris.data
+#boston = load_boston()
+#X = boston.data
+#print(X)
+
+#X=open('E:/synthetic_control.data','r')
+
+mat = []        #création d'une liste vide
+with open ("E:/synthetic_control.data","r") as f :      #ouverture du fichier en mode lecture
+    for li in f :       #pour toutes les lignes du fichier :
+        s=li.strip('\n\r')      # on enlève les caractère de fin de ligne
+        l = s.split(" ")        # on découpe en colonnes
+        mat.append(l)           # on ajoute la ligne à la matrice
+#print(mat)      #affichage de la matrice
+X =np.array(mat, dtype=np.float)
+#X = mat.astype('f')
+
+#X=mat
 
 # setting distance_threshold=0 ensures we compute the full tree.
 model = AgglomerativeClustering(distance_threshold=0, n_clusters=None)
